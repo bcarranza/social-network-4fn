@@ -1,81 +1,81 @@
 CREATE TABLE [users] (
-  [id] integer PRIMARY KEY,
+  [id] int PRIMARY KEY IDENTITY(1,1),
   [username] nvarchar(255),
   [email] nvarchar(255) UNIQUE,
   [password] nvarchar(255),
-  [created_at] timestamp,
-  [updated_at] timestamp
+  [created_at] datetime2,
+  [updated_at] datetime2
 )
 GO
 
 CREATE TABLE [roles] (
-  [id] integer PRIMARY KEY,
+  [id] int PRIMARY KEY IDENTITY(1,1),
   [name] nvarchar(255) UNIQUE,
-  [description] text
+  [description] nvarchar(max)
 )
 GO
 
 CREATE TABLE [user_roles] (
-  [user_id] integer,
-  [role_id] integer,
-  [assigned_at] timestamp,
+  [user_id] int,
+  [role_id] int,
+  [assigned_at] datetime2,
   PRIMARY KEY ([user_id], [role_id])
 )
 GO
 
 CREATE TABLE [posts] (
-  [id] integer PRIMARY KEY,
+  [id] int PRIMARY KEY IDENTITY(1,1),
   [title] nvarchar(255),
-  [body] text,
-  [user_id] integer,
+  [body] nvarchar(max),
+  [user_id] int,
   [status] nvarchar(255),
-  [created_at] timestamp,
-  [updated_at] timestamp
+  [created_at] datetime2,
+  [updated_at] datetime2
 )
 GO
 
 CREATE TABLE [comments] (
-  [id] integer PRIMARY KEY,
-  [post_id] integer,
-  [user_id] integer,
-  [content] text,
-  [created_at] timestamp
+  [id] int PRIMARY KEY IDENTITY(1,1),
+  [post_id] int,
+  [user_id] int,
+  [content] nvarchar(max),
+  [created_at] datetime2
 )
 GO
 
 CREATE TABLE [likes] (
-  [user_id] integer,
-  [post_id] integer,
-  [liked_at] timestamp,
+  [user_id] int,
+  [post_id] int,
+  [liked_at] datetime2,
   PRIMARY KEY ([user_id], [post_id])
 )
 GO
 
 CREATE TABLE [follows] (
-  [following_user_id] integer,
-  [followed_user_id] integer,
-  [created_at] timestamp,
+  [following_user_id] int,
+  [followed_user_id] int,
+  [created_at] datetime2,
   PRIMARY KEY ([following_user_id], [followed_user_id])
 )
 GO
 
 CREATE TABLE [categories] (
-  [id] integer PRIMARY KEY,
+  [id] int PRIMARY KEY IDENTITY(1,1),
   [name] nvarchar(255) UNIQUE,
-  [description] text
+  [description] nvarchar(max)
 )
 GO
 
 CREATE TABLE [post_categories] (
-  [post_id] integer,
-  [category_id] integer,
+  [post_id] int,
+  [category_id] int,
   PRIMARY KEY ([post_id], [category_id])
 )
 GO
 
 CREATE TABLE [profiles] (
-  [user_id] integer PRIMARY KEY,
-  [bio] text,
+  [user_id] int PRIMARY KEY,
+  [bio] nvarchar(max),
   [profile_picture] nvarchar(255),
   [website] nvarchar(255),
   [location] nvarchar(255),
